@@ -1,0 +1,55 @@
+<%#
+  This template is i18n-ready: if you don't use i18n, then you can replace the pagy_t
+  calls with the actual strings ("&lsaquo; Prev", "Next &rsaquo;", "&hellip;").
+
+  The link variable is set to a proc that returns the link tag.
+  Usage: link.call( page_number [, text [, extra_attributes_string ]])
+-%>
+<% link = pagy_link_proc(pagy) -%>
+<% if pagy.series.length > 1 %>
+  <nav aria-label="pager" class="d-flex pagy-bootstrap-nav mt-4" role="navigation">
+    <ul class="pagination align-items-center gap-3 mb-0">
+      <% if pagy.prev -%>
+        <li class="page-item prev fw-semibold">
+          <%== link.call(pagy.prev, "<-", %(aria-label="previous")) %>
+        </li>
+      <% else -%>
+        <li class="page-item prev fw-semibold">
+          <a href="#" class="disabled">
+            <-
+          </a>
+        </li>
+      <% end -%>
+
+      <% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
+        <% if item.is_a?(Integer) -%>
+          <li class="page-item fw-semibold">
+            <%== link.call(item, item, %(class="px-2 py-1")) %>
+          </li>
+        <% elsif item.is_a?(String) -%>
+          <li class="page-item active fw-semibold">
+            <%== link.call(item, item, %(class="px-2 py-1")) %>
+          </li>
+        <% elsif item == :gap -%>
+          <li class="page-item disabled gap fw-semibold">
+            <a href="#" class="px-2 py-1">
+              <%== pagy_t("pagy.nav.gap") %>
+            </a>
+          </li>
+        <% end -%>
+      <% end -%>
+
+      <% if pagy.next -%>
+        <li class="page-item next fw-semibold">
+          <%== link.call(pagy.next, "->", %(aria-label="next")) %>
+        </li>
+      <% else -%>
+        <li class="page-item next fw-semibold">
+          <a href="#" class="disabled">
+            ->
+          </a>
+        </li>
+      <% end -%>
+    </ul>
+  </nav>
+<% end %>

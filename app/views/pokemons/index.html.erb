@@ -1,11 +1,15 @@
 <div>
-  <div class="d-flex flex-wrap">
+  <div class="d-flex flex-wrap" id="pokemons">
     <% @pokemons.each do |pokemon| %>
       <%= image_tag(pokemon.image_url, height: 100, width: 100, style: "object-fit: contain;") %>
     <% end %>
   </div>
 
-  <div class="d-flex">
-    <%== render partial: "layouts/partials/bootstrap_nav", locals: { pagy: @pagy } %>
+  <div class="d-flex" id="pagy">
+    <%== pagy_nav_js(@pagy) %>
   </div>
 </div>
+
+<% content_for(:javascript) do %>
+  <%= javascript_include_tag("pagy_init") %>
+<% end %>

@@ -1,0 +1,48 @@
+nav.pagy-nav-js {
+  .page {
+    border: none;
+    font-weight: normal;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+    }
+
+    &.active {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.next a::after,
+    &.prev a::before {
+      content: "";
+      display: inline-block;
+      height: 1rem;
+      width: 1rem;
+    }
+
+    &.next.disabled::after,
+    &.prev.disabled::before {
+      content: "";
+      display: inline-block;
+      height: 1rem;
+      width: 1rem;
+    }
+
+    &.next a::after,
+    &.next.disabled::after {
+      transform: rotate(180deg);
+    }
+  }
+}

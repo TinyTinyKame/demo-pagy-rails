@@ -1,0 +1,9 @@
+document.querySelector("#pokemons").innerHTML = `
+  <% @pokemons.each do |pokemon| %>
+    <%= image_tag(pokemon.image_url, height: 100, width: 100, style: "object-fit: contain;") %>
+  <% end %>
+`;
+
+document.querySelector("#pagy").innerHTML = "<%== j pagy_nav_js(@pagy) %>";
+
+Pagy.init();
